@@ -32,4 +32,9 @@ Part 1: Create some style blocks to style the card.
 
 .card button {
     margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.card h2, p {
+    padding: 10px;
 }
