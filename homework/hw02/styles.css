@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Kablammo&display=swap');
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.rightNav {
+    display: flex;
+    gap: 20px;
+    padding-right: 50px;
+}
+
+.photoApp {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 150%;
+}
+
+.signOut {
+    color: blue;
+}
+.recommendationsPanel {
+    display: none;
+}
+
+
+@media (min-width: 1024px) {
+
+    .wholePage a {
+        padding-left: 30px;
+    }
+
+
+    .recommendationsPanel {
+        display: block;
+        font-family: 'Poppins', sans-serif;
+        position: fixed;
+        padding-top: 70px;
+    }
+
+    .wholePage {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1px 50px 50px 0;
+
+    }
+
+    .suggestion {
+        display: grid;
+        grid-template-columns: 80px auto 80px;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .current-user {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .current-user img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+
+    .suggestion img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .userInfo .name {
+        font-weight: 600;
+    }
+
+    .userInfo .subtext {
+        color: gray;
+        font-size: 0.9rem;
+    }
+
+    .activeUser {
+        font-size: 1.5rem;
+        font-weight: 600;
+        font-family: "Comfortaa", sans-serif;    }
+}
+
+.storiesPanel {
+    display: flex;
+    gap: 20px;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+  
+.story {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+  
+.story img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+  
+.story span {
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.card {
+    width: 500px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    margin: 20px auto;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
+  
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: 600;
+}
+  
+.cardImage img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+  
+.cardIcons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+  
+.cardIcons .left-icons i {
+    margin-right: 10px;
+}
+
+.cardLikes {
+    padding: 0 10px;
+    font-weight: 600;
+}
+  
+.cardCaption {
+    padding: 0 10px;
+    margin: 5px 0;
+}
+  
+.cardCaption a {
+    color: #898888;
+    text-decoration: none;
+    margin-left: 5px;
+}
+  
+.cardComments {
+    padding: 0 10px;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+  
+.cardComments div {
+    margin-bottom: 3px;
+}
+  
+.cardAddComment {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #eeeeee;
+    padding: 5px 10px;
+}
+  
+.cardAddComment i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+  
+.cardAddComment input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+  
+.card-add-comment a {
+    margin-left: 10px;
+    font-weight: 600;
+    color: #0095f6;
+    text-decoration: none;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-left: 200px;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+
+
+@media (max-width: 1024px) {
+    .leftSide {
+        padding-top: 70px;
+        margin-left: 20px;
+    }
+}
