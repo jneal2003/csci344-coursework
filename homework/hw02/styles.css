@@ -62,14 +62,14 @@ ul {
         padding: 10px;
     }
 
-    .current-user {
+    .currentUser {
         display: flex;
         align-items: center;
         gap: 15px;
         margin-bottom: 15px;
     }
 
-    .current-user img {
+    .currentUser img {
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -206,12 +206,6 @@ ul {
     padding: 5px;
 }
   
-.card-add-comment a {
-    margin-left: 10px;
-    font-weight: 600;
-    color: #0095f6;
-    text-decoration: none;
-}
 
 .leftSide {
     display: flex;
