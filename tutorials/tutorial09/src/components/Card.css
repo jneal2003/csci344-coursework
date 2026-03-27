@@ -1,0 +1,27 @@
+.card {
+    width: 30%;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .card h2 {
+    color: black;
+    font-size: 1.4rem;
+    margin-left: 25px;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    color: #000000;
+    margin-left: 15px;
+  }
