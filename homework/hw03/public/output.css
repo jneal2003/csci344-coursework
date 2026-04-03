@@ -630,12 +630,20 @@ video {
   margin-top: 100px;
 }
 
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+
 .flex{
   display: flex;
 }
 
 .hidden{
   display: none;
+}
+
+.h-10{
+  height: 2.5rem;
 }
 
 .w-16{
@@ -648,6 +656,10 @@ video {
 
 .w-full{
   width: 100%;
+}
+
+.w-10{
+  width: 2.5rem;
 }
 
 .min-w-\[80\%\]{
@@ -690,6 +702,12 @@ video {
   overflow: hidden;
 }
 
+.truncate{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .rounded-full{
   border-radius: 9999px;
 }
@@ -723,6 +741,11 @@ video {
 
 .bg-cover{
   background-size: cover;
+}
+
+.object-cover{
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-2{

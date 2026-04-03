@@ -10,6 +10,9 @@ async function initializeScreen() {
   token = await getToken();
   showNav();
   showPosts();
+  showProfileHeader();
+  showSuggestions();
+  showStories();
   // invoke all of the Part 1 functions here
 }
 
@@ -31,7 +34,6 @@ async function showPosts() {
   });
 
   const posts = await response.json();
-  console.log(posts);
 
   const postsContainerEl = document.querySelector("#postsContainer");
 
@@ -56,7 +58,14 @@ function postToHTML(post) {
         <div class="p-4">
             <div class="flex justify-between text-2xl mb-3">
                 <div>
-                    <button><i class="far fa-heart"></i></button>
+                    <button id="like-${post.id}" 
+                      onClick="${
+                        post.current_user_like_id
+                          ? `unlike(${post.current_user_like_id})`
+                          : `like(${post.id})`
+                      }"aria-label="Like post">
+                      ${getLikeButton(post)}
+                    </button>
                     <button><i class="far fa-comment"></i></button>
                     <button><i class="far fa-paper-plane"></i></button>
                 </div>
@@ -66,7 +75,7 @@ function postToHTML(post) {
                       post.current_user_bookmark_id
                         ? `unbookmark(${post.current_user_bookmark_id})`
                         : `bookmark(${post.id})`
-                    }">
+                    }"aria-label="Bookmark post">
                     ${getBookmarkButton(post)}
                 </button>
                 </div>
@@ -78,15 +87,9 @@ function postToHTML(post) {
                         ${post.caption}
                     </p>
                 </div>
-                <p class="text-sm mb-3">
-                    <strong>lizzie</strong>
-                    Here is a comment text text text text text text text text.
-                </p>
-                <p class="text-sm mb-3">
-                    <strong>vanek97</strong>
-                    Here is another comment text text text.
-                </p>
-                <p class="uppercase text-gray-500 text-xs">1 day ago</p>
+                <div class="text-sm mb-3">
+                  ${getComments(post)}
+                </div>
             </div>
             <div class="flex justify-between items-center p-3">
                 <div class="flex items-center gap-3 min-w-[80%]">
@@ -99,13 +102,34 @@ function postToHTML(post) {
     `;
 }
 
-async function displayComments(post) {
+function getComments(post) {
+  const comments = post.comments;
+  console.log(comments);
+  if (!comments || comments.length === 0) {
+      return '';
+  }
+
+  if (comments.length === 1) {
+      const comment = comments[0];
+      return `
+          <p class="text-sm mb-3">
+              <strong>${comment.user.username}</strong>
+              ${comment.text}
+          </p>
+      `;
+  }
+
+  const mostRecent = comments[comments.length - 1];
   return `
-    <p class="text-sm mb-3">
-        <strong>${post.comments.user.username}</strong>
-        ${post.comments.text}
-    </p>
-    `;
+      <button class="text-sm text-gray-500 mb-2">
+          View all ${comments.length} comments
+      </button>
+      <p class="text-sm mb-3">
+          <strong>${mostRecent.user.username}</strong>
+          ${mostRecent.text}
+      </p>
+      <p class="uppercase text-gray-500 text-xs">${mostRecent.display_time}</p>
+  `;
 }
 
 function getBookmarkButton(post) {
@@ -121,6 +145,21 @@ function getBookmarkButton(post) {
     return `   
             <i class="far fa-bookmark"></i>
         `;
+}
+
+function getLikeButton(post) {
+  // if post.current_user_bookmark_id exists:
+  //     render the filled bookmark icon
+  // otherwise:
+  //     render the hollow bookmark icon
+  if (post.current_user_like_id) {
+    return `
+                <i class="fas fa-heart"></i>
+            `;
+  } else
+    return `   
+      <i class="far fa-heart"></i>        
+    `;
 }
 
 async function getToken() {
@@ -160,7 +199,6 @@ async function bookmark(postId) {
   });
 
   const bookmark = await response.json();
-  console.log(bookmark);
 
   const postsContainerEl = document.querySelector("#postsContainer");
   postsContainerEl.innerHTML = "";
@@ -169,6 +207,134 @@ async function bookmark(postId) {
 
 async function unbookmark(bookmarkId) {
   const endpoint = `${rootURL}/api/bookmarks/${bookmarkId}`;
+
+  const response = await fetch(endpoint, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  const postsContainerEl = document.querySelector("#postsContainer");
+  postsContainerEl.innerHTML = "";
+  await showPosts();
+}
+
+async function showProfileHeader() {
+  // fetch the current user's profile data from /api/profile
+  // select the container where the profile header should go
+  // build an HTML string for the user's image + username
+  // insert that HTML into the DOM
+  const endpoint = `${rootURL}/api/profile/`;
+
+  const response = await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  }); 
+  const data = await response.json();
+
+  const userContainerEL = document.querySelector("#profileContainer");
+
+  const htmlString = `
+    <header class="flex gap-4 items-center">
+      <img src="${data.image_url}" class="rounded-full w-16" alt="${data.username} profile pic"/>
+      <h2 class="font-Comfortaa font-bold text-2xl">${data.username}</h2>
+    </header>
+  `;
+
+  userContainerEL.innerHTML = htmlString;
+}
+
+async function showSuggestions() {
+
+  const endpoint = `${rootURL}/api/suggestions/`;
+
+  const response = await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  }); 
+  const data = await response.json();
+
+  const suggestionsContainerEL = document.querySelector("#suggestionsContainer");
+
+  const htmlString = data.map(user => {
+    return `
+    <section class="flex justify-between items-center mb-4 gap-2">
+    <img src="${user.image_url}" class="rounded-full w-10 h-10 object-cover" alt="${user,username} profile pic"/>
+    <div class="w-[180px]">
+      <p class="font-bold text-sm truncate">${user.username}</p>
+      <p class="text-gray-500 text-xs truncate">suggested for you</p>
+    </div>
+    <button class="text-blue-500 text-sm py-2">follow</button>
+  </section>
+`;
+  }).join("");
+
+  suggestionsContainerEL.innerHTML = htmlString;
+}
+
+async function showStories() {
+
+  const endpoint = `${rootURL}/api/stories/`;
+
+  const response = await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  }); 
+  const data = await response.json();
+  console.log(data);
+
+  const suggestionsContainerEL = document.querySelector("#storiesContainer");
+
+  const htmlString = data.map(user => {
+    return `
+    <div class="flex flex-col justify-center items-center">
+    <img src="${user.user.image_url}" class="rounded-full border-4 border-gray-300" alt="${user.user.username} profile pic"/>
+    <p class="text-xs text-gray-500">${user.user.username}</p>
+    </div>    
+`;
+  }).join("");
+
+  suggestionsContainerEL.innerHTML = htmlString;
+}
+
+async function like(postId) {
+  // build the /api/bookmarks/ endpoint
+  // issue a POST request with fetch(...)
+  // include your bearer token in the Authorization header
+  // send the post id in the request body
+  // inspect the response JSON
+  // refresh or redraw the post after the request succeeds
+  const endpoint = `${rootURL}/api/likes/`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ post_id: postId }),
+  });
+
+  const like = await response.json();
+
+  const postsContainerEl = document.querySelector("#postsContainer");
+  postsContainerEl.innerHTML = "";
+  await showPosts();
+}
+
+async function unlike(likeID) {
+  const endpoint = `${rootURL}/api/likes/${likeID}`;
 
   const response = await fetch(endpoint, {
     method: "DELETE",
