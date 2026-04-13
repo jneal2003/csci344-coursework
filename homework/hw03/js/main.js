@@ -50,11 +50,11 @@ function postToHTML(post) {
               post.user.username
             }</h3>
             <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
-        </div>
-        <img src="${post.image_url}" alt="${
-    post.alt_text
-  }" width="300" height="300"
-            class="w-full bg-cover">
+            </div>
+            <img src="${post.image_url}" alt="${
+        post.alt_text
+      }" width="300" height="300"
+                class="w-full bg-cover">
         <div class="p-4">
             <div class="flex justify-between text-2xl mb-3">
                 <div>
@@ -133,10 +133,7 @@ function getComments(post) {
 }
 
 function getBookmarkButton(post) {
-  // if post.current_user_bookmark_id exists:
-  //     render the filled bookmark icon
-  // otherwise:
-  //     render the hollow bookmark icon
+
   if (post.current_user_bookmark_id) {
     return `
                 <i class="fas fa-bookmark"></i>
@@ -148,10 +145,6 @@ function getBookmarkButton(post) {
 }
 
 function getLikeButton(post) {
-  // if post.current_user_bookmark_id exists:
-  //     render the filled bookmark icon
-  // otherwise:
-  //     render the hollow bookmark icon
   if (post.current_user_like_id) {
     return `
                 <i class="fas fa-heart"></i>
