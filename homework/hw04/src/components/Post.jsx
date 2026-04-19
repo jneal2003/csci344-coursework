@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BookmarkButton from "./BookmarkButton";
+import LikeButton from "./LikeButton";
 
 export default function Post({ post, token }) {
   // helper function for comments
@@ -59,9 +60,7 @@ export default function Post({ post, token }) {
         <div className="p-4">
           <div className="flex justify-between text-2xl mb-3">
             <div>
-              <button>
-                <i className="far fa-heart"></i>
-              </button>
+              <LikeButton post={post} token = {token}/>
               <button>
                 <i className="far fa-comment"></i>
               </button>
