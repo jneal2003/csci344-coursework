@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "configPath": "/Users/jackneal/csci344/final project/backend/api.config.yaml",
+    "generatedAt": "2026-05-05T19:51:18.279Z",
+    "seedDir": "data/sample-data"
+  },
+  "userResource": {
+    "type": "User",
+    "tableName": "users",
+    "fields": [
+      {
+        "name": "role",
+        "type": "string",
+        "storageType": "string",
+        "required": true,
+        "default": "user",
+        "choices": [
+          "user",
+          "admin"
+        ],
+        "relation": null,
+        "query": {
+          "param": "role",
+          "op": "eq"
+        }
+      }
+    ]
+  },
+  "resources": [
+    {
+      "type": "Course",
+      "tableName": "courses",
+      "fileBase": "courses",
+      "path": "/api/courses",
+      "operations": [
+        "list",
+        "retrieve",
+        "create",
+        "update",
+        "delete"
+      ],
+      "shareable": false,
+      "ownershipEnabled": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "storageType": "string",
+          "required": true,
+          "relation": null,
+          "query": {
+            "param": "name",
+            "op": "contains"
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "storageType": "string",
+          "required": true,
+          "relation": null,
+          "query": {
+            "param": "address",
+            "op": "contains"
+          }
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "storageType": "number",
+          "required": true,
+          "relation": null,
+          "query": null
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "storageType": "number",
+          "required": true,
+          "relation": null,
+          "query": null
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "storageType": "number",
+          "required": false,
+          "relation": null,
+          "query": {
+            "param": "rating",
+            "op": "eq"
+          }
+        },
+        {
+          "name": "par",
+          "type": "integer",
+          "storageType": "integer",
+          "required": false,
+          "relation": null,
+          "query": null
+        },
+        {
+          "name": "distance",
+          "type": "integer",
+          "storageType": "integer",
+          "required": false,
+          "relation": null,
+          "query": null
+        }
+      ],
+      "permissions": {
+        "list": "public",
+        "retrieve": "public",
+        "create": "user",
+        "update": "owner",
+        "delete": "owner"
+      },
+      "queryFilters": [
+        {
+          "param": "name",
+          "fieldName": "name",
+          "op": "contains",
+          "type": "string",
+          "storageType": "string",
+          "relation": null,
+          "choices": null
+        },
+        {
+          "param": "address",
+          "fieldName": "address",
+          "op": "contains",
+          "type": "string",
+          "storageType": "string",
+          "relation": null,
+          "choices": null
+        },
+        {
+          "param": "rating",
+          "fieldName": "rating",
+          "op": "eq",
+          "type": "number",
+          "storageType": "number",
+          "relation": null,
+          "choices": null
+        },
+        {
+          "param": "owner_id",
+          "fieldName": "owner_id",
+          "op": "eq",
+          "type": "integer",
+          "storageType": "integer",
+          "relation": null
+        }
+      ]
+    }
+  ]
+}

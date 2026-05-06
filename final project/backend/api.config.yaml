@@ -1,0 +1,37 @@
+# Sample API: campus fruit trees and bushes
+# Copy this file to the project root as api.config.yaml (backup the default first if you want).
+
+resources:
+  - type: Course
+    path: /api/courses
+    operations: [list, retrieve, create, update, delete]
+    fields:
+      - name: name
+        type: string
+        required: true
+        query: true
+      - name: address
+        type: string
+        required: true
+        query: true
+      - name: latitude
+        type: number
+        required: true
+      - name: longitude
+        type: number
+        required: true
+      - name: rating
+        type: number
+        query: true
+      - name: par
+        type: integer
+        description: sum of all holes par
+      - name: distance
+        type: integer
+        description: total distance in feet
+    permissions:
+      list: public
+      retrieve: public
+      create: user
+      update: owner
+      delete: owner

@@ -1,0 +1,38 @@
+resources:
+  - type: VideoGame
+    path: /api/video_games
+    operations: [list, retrieve, create, update, delete]
+    fields:
+      - name: name
+        type: string
+        required: true
+        query: true
+      - name: develeper
+        type: string
+        query: true
+      - name: photo
+        type: image_url
+        required: true
+    permissions:
+      list: public
+      retrieve: public
+      create: user
+      update: owner
+      delete: owner
+
+  - type: Notes
+    path: /api/notes
+    operations: [list, retrieve, create, update, delete]
+    fields:
+      - name: video_game
+        type: VideoGame
+        required: true
+      - name: isPlayed
+        type: boolean
+    permissions:
+      list: public
+      retrieve: public
+      create: user
+      update: owner
+      delete: owner
+  

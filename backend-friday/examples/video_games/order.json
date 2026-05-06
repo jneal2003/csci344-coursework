@@ -1,0 +1,19 @@
+{
+  "apiVersion": "1",
+  "baseUrlEnv": "API_BASE",
+  "directory": "data/sample-data",
+  "resources": [
+    {
+      "type": "VideoGame",
+      "path": "/api/video_games",
+      "file": "video_games.csv"
+    },
+    {
+      "type": "Notes",
+      "path": "/api/notes",
+      "file": "notes.csv"
+    }
+  ],
+  "usersFile": "users.csv",
+  "seedUserColumn": "seed_as"
+}

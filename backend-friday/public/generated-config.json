@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "configPath": "/Users/jackneal/csci344/backend-friday/examples/video_games/api.config.yaml",
+    "generatedAt": "2026-04-24T18:42:01.749Z",
+    "seedDir": "examples/video_games"
+  },
+  "resources": [
+    {
+      "type": "VideoGame",
+      "tableName": "video_games",
+      "fileBase": "video-games",
+      "path": "/api/video_games",
+      "operations": [
+        "list",
+        "retrieve",
+        "create",
+        "update",
+        "delete"
+      ],
+      "shareable": false,
+      "ownershipEnabled": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "storageType": "string",
+          "required": true,
+          "relation": null,
+          "query": {
+            "param": "name",
+            "op": "contains"
+          }
+        },
+        {
+          "name": "develeper",
+          "type": "string",
+          "storageType": "string",
+          "required": false,
+          "relation": null,
+          "query": {
+            "param": "develeper",
+            "op": "contains"
+          }
+        },
+        {
+          "name": "photo",
+          "type": "image_url",
+          "storageType": "image_url",
+          "required": true,
+          "relation": null,
+          "query": null
+        }
+      ],
+      "permissions": {
+        "list": "public",
+        "retrieve": "public",
+        "create": "user",
+        "update": "owner",
+        "delete": "owner"
+      },
+      "queryFilters": [
+        {
+          "param": "name",
+          "fieldName": "name",
+          "op": "contains",
+          "type": "string",
+          "storageType": "string",
+          "relation": null
+        },
+        {
+          "param": "develeper",
+          "fieldName": "develeper",
+          "op": "contains",
+          "type": "string",
+          "storageType": "string",
+          "relation": null
+        },
+        {
+          "param": "owner_id",
+          "fieldName": "owner_id",
+          "op": "eq",
+          "type": "integer",
+          "storageType": "integer",
+          "relation": null
+        }
+      ]
+    },
+    {
+      "type": "Notes",
+      "tableName": "noteses",
+      "fileBase": "noteses",
+      "path": "/api/notes",
+      "operations": [
+        "list",
+        "retrieve",
+        "create",
+        "update",
+        "delete"
+      ],
+      "shareable": false,
+      "ownershipEnabled": true,
+      "fields": [
+        {
+          "name": "video_game",
+          "type": "VideoGame",
+          "storageType": "integer",
+          "required": true,
+          "relation": {
+            "resourceType": "VideoGame",
+            "targetField": "id"
+          },
+          "query": null
+        },
+        {
+          "name": "isPlayed",
+          "type": "boolean",
+          "storageType": "boolean",
+          "required": false,
+          "relation": null,
+          "query": null
+        }
+      ],
+      "permissions": {
+        "list": "public",
+        "retrieve": "public",
+        "create": "user",
+        "update": "owner",
+        "delete": "owner"
+      },
+      "queryFilters": [
+        {
+          "param": "owner_id",
+          "fieldName": "owner_id",
+          "op": "eq",
+          "type": "integer",
+          "storageType": "integer",
+          "relation": null
+        }
+      ]
+    }
+  ]
+}
